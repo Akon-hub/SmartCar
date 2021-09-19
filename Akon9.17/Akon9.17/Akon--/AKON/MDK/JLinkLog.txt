@@ -1,0 +1,9 @@
+
+T177A4 000:233 SEGGER J-Link V6.46 Log File (0001ms, 0008ms total)
+T177A4 000:233 DLL Compiled: May 23 2019 17:49:56 (0001ms, 0008ms total)
+T177A4 000:233 Logging started @ 2021-09-12 17:57 (0001ms, 0008ms total)
+T177A4 000:234 JLINK_SetWarnOutHandler(...) (0001ms, 0009ms total)
+T177A4 000:235 JLINK_OpenEx(...)
+Firmware: J-Link V11 compiled Oct 12 2012 BTL         
+  ***** Error: Communication timed out: Requested 4 bytes, received 0 bytes !
+  ***** Error: Could not read J-Link capabilities.
