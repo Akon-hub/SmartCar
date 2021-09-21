@@ -18,8 +18,13 @@ void	delay_ms(uint16_t ms);
 
 
 //============================================CAM==========================================================================================================================//
+#define STATICDIFFERENCE(x,y) (((ABS(x))<(y))?0:(x))
+
+
 extern void lian_xian_zhi(int column1,int row1,int column2,int row2,int flag);
 
-#define STATICDIFFERENCE(x,y) (((ABS(x))<(y))?0:(x))
+
+extern const uint8 chinese[][16];
+
 
 #endif // UTILS_H

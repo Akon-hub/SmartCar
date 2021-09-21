@@ -92,6 +92,7 @@ void LcdPageZero()  //目录
     ips200_showstr(10, 5, "Page Five  - ELC");
     ips200_showstr(10, 6, "Page Six   - Gyroscope");
     ips200_showstr(10, 7, "Page Seven - Circle");
+		ips200_display_chinese(10,8*LINEWIDTH,16,chinese[0],5,IPS200_PENCOLOR);
     
 }
 void LcdPageOne()   //第一页：电机PID和信息
@@ -127,7 +128,7 @@ void LcdPageOne()   //第一页：电机PID和信息
     
     ips200_showstr(10, 12, "motor.left.differential");
     ips200_showuint16(130, 12, motor.left.differential);
-    ips200_showstr(10, 13, "ak_r");
+    ips200_showstr(10, 13, "RightDifferential");
     ips200_showuint16(130, 13, motor.right.differential);
 }
 void LcdPageTwo()  //第二页：Function开关
@@ -250,6 +251,8 @@ void KEYSTATESelect()   //每页内容显示
         case 8:
             LcdPageEight();
             break;
+				default:
+						break;
     }
 }
 
@@ -270,7 +273,8 @@ void ConfirmAndBack()   //确认键和返回键
                 FlashWrite();
                 FlashRead();
                 break;
-                
+						default:
+                break;
                 
         }
         ips200_clear(IPS200_BGCOLOR); 
@@ -314,11 +318,17 @@ void ShowArrow(uint16 x, uint16 y, uint16 color, uint8 direction)
             break;
         default:
             BEEP_ON;
+						while(1)
+						{
+							PRINTF("switch(direction) in ShowArrow(uint16 x, uint16 y, uint16 color, uint8 direction) Function Error");
+						}
             break;
     }
 }
 void ChangeParamInt16(int16 *Param) //用于修改模式中的修改int16型
 {
+	if(Param)
+	{
     if(key.up == onePress || key.up == alwaysPress)
     {
         key.up = noPress;
@@ -333,10 +343,21 @@ void ChangeParamInt16(int16 *Param) //用于修改模式中的修改int16型
         ips200_clear(IPS200_BGCOLOR);
         KEYSTATESelect();
     }
+	}
+	else
+	{
+		BEEP_ON;
+		while(1)
+		{
+			PRINTF("Param in ChangeParamInt16(int16 *Param) Function Error");
+		}
+	}
 }
 
 void ChangeParamUint16(uint16 *Param) //用于修改模式中的修改uint16型
 {
+	if(Param)
+	{
     if(key.up == onePress || key.up == alwaysPress)
     {
         key.up = noPress;
@@ -351,9 +372,21 @@ void ChangeParamUint16(uint16 *Param) //用于修改模式中的修改uint16型
         ips200_clear(IPS200_BGCOLOR);
         KEYSTATESelect();
     }
+	}
+	else
+	{
+		BEEP_ON;
+		while(1)
+		{
+			PRINTF("Param in ChangeParamUint16(uint16 *Param) Function Error");
+		}
+	}
 }
 void ChangeParamInt(int *Param) //用于修改模式中的修改int型
 {
+	if(Param)	//指针不为空
+	{
+		//正常执行代码
     if(key.up == onePress || key.up == alwaysPress)
     {
         key.up = noPress;
@@ -368,9 +401,21 @@ void ChangeParamInt(int *Param) //用于修改模式中的修改int型
         ips200_clear(IPS200_BGCOLOR);
         KEYSTATESelect();
     }
+	}
+	else
+	{
+		//错误执行代码
+		BEEP_ON;
+		while(1)
+		{
+			PRINTF("Param in ChangeParamInt(int *Param) Function Error");
+		}
+	}
 }
 void ChangeParamFloat(float *Param)//用于修改模式中的修改float型
 {
+	if(Param)
+	{
     if(key.up == onePress || key.up == alwaysPress)
     {
         key.up = noPress;
@@ -385,9 +430,20 @@ void ChangeParamFloat(float *Param)//用于修改模式中的修改float型
         ips200_clear(IPS200_BGCOLOR);
         KEYSTATESelect();
     }
+	}
+	else
+	{
+		BEEP_ON;
+		while(1)
+		{
+			PRINTF("Param in ChangeParamFloat(float *Param) Function Error");
+		}
+	}
 }
 void ChangeParamBool(bool *Param)//用于修改模式中的修改bool型
 {
+	if(Param)
+	{
     if(key.up == onePress || key.up == alwaysPress || key.down == onePress || key.down == alwaysPress)
     {
         key.up = noPress;
@@ -397,6 +453,15 @@ void ChangeParamBool(bool *Param)//用于修改模式中的修改bool型
         ips200_clear(IPS200_BGCOLOR);
         KEYSTATESelect();
     }
+	}
+	else
+	{
+		BEEP_ON;
+		while(1)
+		{
+			PRINTF("Param in ChangeParamBool(bool *Param) Function Error");
+		}
+	}
 }
 //----------------------------------------------------------------
 //  @brief        修改参数。需要和屏幕显示的参数保持一致
@@ -438,10 +503,10 @@ void ChangeParam()
 //								case 9:
 //										ChangeParamUint16(&leftWheel.now);
 //										break;
-				case 10:
-					ChangeParamInt16(&motor.left.expectSpeed);
-					break;
-				case 11:
+								case 10:
+									ChangeParamInt16(&motor.left.expectSpeed);
+									break;
+								case 11:
                     ChangeParamInt16(&motor.right.expectSpeed);
                     break;
                 case 12:
@@ -450,6 +515,8 @@ void ChangeParam()
                 case 13:
                     ChangeParamUint16(&motor.right.differential);
                     break;
+								default:
+										break;
                 
             }
             break;
@@ -466,6 +533,8 @@ void ChangeParam()
                     break;
                 case 4:
                     break;
+								default:
+										break;
              }
              break;
           case 3:
@@ -480,8 +549,12 @@ void ChangeParam()
                  case 3:
 
                      break;
+								 default:
+										 break;
              }
              break;
+					default:
+						 break;	 
     }
 }
 
@@ -507,6 +580,13 @@ void LcdDisplay()
             
             ChangeParam();
             break;
+				default:
+					 BEEP_ON;
+					 while(1)
+					 		{
+					 			PRINTF("switch(keyState) in LcdDisplay() Function  Error");
+					 		}
+					 break;
     }
 
 }

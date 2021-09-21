@@ -28,10 +28,10 @@ typedef struct      //位置式pid
 
 typedef struct      //位置式pid
 {
-    float Ea = 0;   //隶属度a
-		float Eb = 0;		//隶属度b
-		int li = 0;
-		int j = 0;
+    float Ea;   //隶属度a
+		float Eb;		//隶属度b
+		int li;
+		int j;
 }X;
 
 typedef struct      //位置式pid
@@ -39,7 +39,7 @@ typedef struct      //位置式pid
     MotorPid leftMotor;
     MotorPid rightMotor;
     ServoPid servo;
-		X x; 
+		X x;
 }Pid;
 extern Pid pid;
 extern void PidParamInit(void);

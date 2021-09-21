@@ -21,30 +21,30 @@ int8 ramp_flag=0;
 void DevicesInit()
 {
     //beep
-	gpio_init(BEEP_PIN,GPO,0,GPIO_PIN_CONFIG);
+	  gpio_init(BEEP_PIN,GPO,0,GPIO_PIN_CONFIG);
     BeepParamInit();
     //编码器初始化
     qtimer_quad_init(QTIMER_1,QTIMER1_TIMER0_C0,QTIMER1_TIMER1_C1);
     qtimer_quad_init(QTIMER_1,QTIMER1_TIMER2_C2,QTIMER1_TIMER3_C24);
     EncoderParamInit();
      //电机初始化
-	gpio_init(DIR_1, GPO, 0, GPIO_PIN_CONFIG); 		//单片机端口D0 初始化DIR_1			GPIO
-	gpio_init(DIR_2, GPO, 0, GPIO_PIN_CONFIG); 		//单片机端口D1 初始化DIR_2			GPIO
-	pwm_init(PWM_1, 17000, 0);      				//单片机端口D2 初始化PWM_1周期10K 占空比0
-	pwm_init(PWM_2, 17000, 0);     					//单片机端口D3 初始化PWM_2周期10K 占空比0
+	  gpio_init(DIR_1, GPO, 0, GPIO_PIN_CONFIG); 		//单片机端口D0 初始化DIR_1			GPIO
+	  gpio_init(DIR_2, GPO, 0, GPIO_PIN_CONFIG); 		//单片机端口D1 初始化DIR_2			GPIO
+	  pwm_init(PWM_1, 17000, 0);      				//单片机端口D2 初始化PWM_1周期10K 占空比0
+	  pwm_init(PWM_2, 17000, 0);     					//单片机端口D3 初始化PWM_2周期10K 占空比0
     MotorParamInit();
     //舵机初始化
     pwm_init(S_MOTOR1_PIN,50,servo.duty);
     ServoParamInit();
     //key
     gpio_init(KEY_UP_PIN, GPI, 0, GPIO_PIN_CONFIG);
-	gpio_init(KEY_DOWN_PIN, GPI, 0, GPIO_PIN_CONFIG);
-	gpio_init(KEY_LEFT_PIN, GPI, 1, GPIO_PIN_CONFIG);
-	gpio_init(KEY_RIGHT_PIN, GPI, 0, GPIO_PIN_CONFIG); 
+	  gpio_init(KEY_DOWN_PIN, GPI, 0, GPIO_PIN_CONFIG);
+	  gpio_init(KEY_LEFT_PIN, GPI, 1, GPIO_PIN_CONFIG);
+	  gpio_init(KEY_RIGHT_PIN, GPI, 0, GPIO_PIN_CONFIG); 
     KeyParamInit();
     //DialSwitch
     gpio_init(DIALSWITCH1, GPI, 0, GPIO_PIN_CONFIG);
-	gpio_init(DIALSWITCH2, GPI, 0, GPIO_PIN_CONFIG);
+  	gpio_init(DIALSWITCH2, GPI, 0, GPIO_PIN_CONFIG);
      /**陀螺仪初始化**/
     icm20602_init_spi();
     ICM20602_Offset();
@@ -443,7 +443,7 @@ Debug debug;
 void DebugParamInit()
 {
     debug.function = DebugOpen;
-    debug.open = false;
+    debug.open = true;
     debug.servo = true;
     debug.stopProtect = false;
 }
@@ -462,6 +462,12 @@ void DebugOpen()
         task[keyTask].isOpen   = true;
         task[ANODTTask].isOpen = true;
     }
+		else
+		{
+			task[lcdTask].isOpen   = false;
+			task[keyTask].isOpen   = false;
+			task[ANODTTask].isOpen = false;
+		}
 }
 
 static const unsigned char crc_table[] =
@@ -568,7 +574,6 @@ unsigned char cal_crc_table(unsigned char *ptr, unsigned char len)
 
 
 
-
 //----------------------------------------------------------------
 //  @brief        陀螺仪数据零漂
 //  @param        void
@@ -614,10 +619,6 @@ void ICM20602_Offset(void)
     IMC_Offset.gyro.z = temp[5] / Count;
 //    ICM20602_Offset_Finished=1;
 }
-
-
-
-
 
 
 
@@ -767,9 +768,18 @@ void LedColor(ColorEnum Color)
             LedSetColorRGB(255, 255, 255);  //5
             break;
         default:
+						BEEP_ON;
+						while(1)
+						{
+							PRINTF("switch(Color) in LedColor(ColorEnum Color) Function Error");
+						}
             break;
     }
 }
 
-
-
+//===============================================DOG==========================================================================================================================//  
+uint8 dog = 0;
+//void DogTimer()
+//{
+//	if
+//}

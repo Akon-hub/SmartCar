@@ -106,9 +106,5 @@
 #include "utils.h"
 
 
-#define ture true
-#define flase false
-	
-
 #endif
 

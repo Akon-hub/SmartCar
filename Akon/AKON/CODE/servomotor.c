@@ -19,7 +19,7 @@ void ServoMotorControl(void)
     
     if(!debug.servo) servo.duty = servo.mid;
     
-	pwm_duty(S_MOTOR1_PIN, servo.duty);
+	  pwm_duty(S_MOTOR1_PIN, servo.duty);
 }
 
 

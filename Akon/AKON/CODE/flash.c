@@ -7,12 +7,11 @@ void FlashInit()
     flash_init();            //≥ı ºªØflash
     FlashWrite();
     FlashRead();
-    
 }
 
 void FlashWrite()
 {
-        //pid
+    //pid
     flashInformation.temp_write[0][0] = float_conversion_uint32(pid.leftMotor.kp); 
     flashInformation.temp_write[0][1] = float_conversion_uint32(pid.leftMotor.ki);        
     flashInformation.temp_write[0][2] = float_conversion_uint32(pid.leftMotor.kd);
@@ -21,12 +20,9 @@ void FlashWrite()
     flashInformation.temp_write[1][1] = float_conversion_uint32(pid.rightMotor.ki);  
     flashInformation.temp_write[1][2] = float_conversion_uint32(pid.rightMotor.kd);
     
-//    temp_write[2][0] = float_conversion_uint32(turnPIDParam[0][0]);        
-//    temp_write[2][1] = float_conversion_uint32(turnPIDParam[0][3]);   
-//    temp_write[2][2] = float_conversion_uint32(turnPIDParam[0][4]);
-    flashInformation.temp_write[2][0] = pid.servo.kp1;  
-    flashInformation.temp_write[2][1] = pid.servo.kp2;
-    flashInformation.temp_write[2][2] = pid.servo.kd;
+    flashInformation.temp_write[2][0] = float_conversion_uint32(pid.servo.kp1);  
+    flashInformation.temp_write[2][1] = float_conversion_uint32(pid.servo.kp2);
+    flashInformation.temp_write[2][2] = float_conversion_uint32(pid.servo.kd);
     
     flashInformation.temp_write[3][0] = motor.expectSpeed;
     flashInformation.temp_write[3][1] = motor.left.differential;

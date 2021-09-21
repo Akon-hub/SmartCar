@@ -51,7 +51,7 @@ int main(void)
     CreatTask(beepTask,  BeepInt,           1,   true);
     CreatTask(motorTask, Cam_Motor_Control, 2,   true);
     CreatTask(servoTask, ServoMotorControl, 2,   true);
-    CreatTask(lcdTask,   LcdDisplay,        150, false);
+    CreatTask(lcdTask,   LcdDisplay,        150, true);
 
     CreatTask(gyroscopeTask, GetGyroscope,  2,   false);
     CreatTask(debugTask, DebugOpen,         10,  false);
